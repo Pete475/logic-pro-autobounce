@@ -2,6 +2,7 @@
 
 property totalTracks : 2
 property cueLengthSeconds : 20
+property cueTimecode : "_01-00-30-00" -- Set your start time here
 property missedTracks : {}
 
 tell application "Logic Pro X" to activate
@@ -13,7 +14,7 @@ tell application "System Events"
 		repeat with i from 1 to totalTracks
 			try
 				-- 1. GET THE TRACK NAME
-				-- Shift + Enter is the default shortcut to rename a track
+				-- Shift + Enter is default shortcut to rename track
 				keystroke return using {shift down}
 				delay 0.5
 				-- Cmd + C to copy the highlighted name
@@ -23,11 +24,11 @@ tell application "System Events"
 				key code 53
 				delay 0.5
 				
-				-- 2. Solo the current track
+				-- 2. Solo current track
 				keystroke "s"
 				delay 0.5
 				
-				-- 3. Trigger a Bounce (Cmd + B)
+				-- 3. Trigger Bounce (Cmd + B)
 				keystroke "b" using {command down}
 				delay 2
 				
@@ -36,10 +37,15 @@ tell application "System Events"
 				delay 2
 				
 				-- 5. PASTE THE NAME
-				-- Now we are in the "Save As" window. 
-				-- We delete whatever was there and paste the track name.
+				-- Now in "Save As" window. 
+				-- Delete whatever was there and paste the track name.
+				keystroke "a" using {command down} -- Select all old text
+				key code 51 -- Delete/Backspace
+				delay 0.5
 				keystroke "v" using {command down}
 				delay 1
+				keystroke cueTimecode
+				-- If You Want To Add Anything to Name and Timecode (Date, Project Name, etc) Add It Here 
 				keystroke return -- Save the file
 				
 				-- 6. Progress Watch
@@ -68,4 +74,12 @@ tell application "System Events"
 	end tell
 end tell
 
--- (Include the same FINAL REPORT logic at the bottom)
+if (count of missedTracks) is 0 then
+    display alert "Success!" message "All " & totalTracks & " stems captured perfectly."
+else
+    set AppleScript's text item delimiters to ", "
+    set missedList to missedTracks as string
+    display alert "Bounce Finished with Issues" message "Captured " & (totalTracks - (count of missedTracks)) & " tracks. 
+    
+    Missed Track Indexes: " & missedList
+end if
