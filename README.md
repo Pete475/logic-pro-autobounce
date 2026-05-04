@@ -11,6 +11,8 @@ Designed for composers/producers using external sample rigs where offline bounci
 ## What it does
 - **Sequential Soloing:** Automatically moves through your track list.
 - **Live Capture:** Triggers a real-time bounce for each track.
+- **Scrape-to-Clipboard:** Automatically extracts track names from the Logic Pro header.
+- **Global Configuration:** Easily update `cueTimecode` and `cueLengthSeconds` at the top of the file for different project cues.
 - **Error Handling:** Includes `try/catch` blocks to skip failed tracks and keep the session moving.
 - **Final Report:** Alerts you at the end if any tracks were missed.
 
