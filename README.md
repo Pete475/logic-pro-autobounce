@@ -1,4 +1,4 @@
-# logic-pro-autobounce
+# Stemmer2: logic-pro-autobounce
 Sequential live stem bouncing automation for Logic Pro X 
 ---
 *Created to solve the "100-track bounce" headache.*
